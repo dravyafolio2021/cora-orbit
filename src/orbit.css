@@ -263,6 +263,8 @@
 .orbit:not([data-started]) .orbit-center { opacity: 1; }
 .orbit:not([data-started]) .orbit-center > .orbit-orb { pointer-events: auto; scale: 1.08; }
 .orbit:not([data-started]) .orbit-seek { display: none !important; }
+/* With a mouse, the orb stands alone: skipping lives on J/L and the arrows. */
+@media (pointer: fine) { .orbit .orbit-btn.orbit-seek { display: none; } }
 
 .orbit-btn.orbit-seek {
   --s: clamp(44px, 8cqi, 60px);
@@ -359,7 +361,11 @@
   pointer-events: none;
 }
 .orbit-loop-band[data-on] { background: color-mix(in srgb, var(--orbit-accent) 28%, transparent); }
-.orbit-loop-edge { position: absolute; top: -3px; bottom: -3px; width: 3px; border-radius: 2px; background: var(--orbit-accent); }
+.orbit-loop-edge { position: absolute; top: 1px; bottom: 1px; width: 3px; border-radius: 2px; background: var(--orbit-accent); }
+/* The band only shows while a loop runs, or while you're setting one up. */
+.orbit-loop-band { transition: opacity var(--orbit-fast); }
+.orbit-loop-band:not([data-on]) { opacity: 0; }
+.orbit:has(#pop-loop[data-open]) .orbit-loop-band { opacity: 1; }
 .orbit-loop-edge[data-edge='a'] { left: -1px; }
 .orbit-loop-edge[data-edge='b'] { right: -1px; }
 
@@ -875,6 +881,8 @@
 .orbit-indicator--status[data-status$='fullscreen'] .icon-full,
 .orbit-indicator--status[data-status$='pip'] .icon-pip { display: block; }
 .orbit-indicator[hidden] { display: none; }
+/* The orb already shows play/pause, so the flash would only double it. */
+.orbit-indicator--status[data-status='play'], .orbit-indicator--status[data-status='pause'] { display: none; }
 
 .orbit-hud { position: absolute; inset: 0; z-index: 6; display: grid; justify-items: center; align-content: start; padding-top: 18px; pointer-events: none; }
 .orbit-hud-pill {

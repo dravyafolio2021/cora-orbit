@@ -17,7 +17,7 @@ export function initOrb(ctx) {
   const fit = () => {
     const m = ctx.media;
     const w = m?.videoWidth, h = m?.videoHeight;
-    const wide = w && h && w / h > 1.9 && window.matchMedia('(min-width: 900px)').matches;
+    const wide = w && h && w / h > 1.9 && window.matchMedia('(min-width: 640px)').matches;
     if (wide) container.style.setProperty('--orbit-aspect', `${w} / ${h}`);
     else container.style.removeProperty('--orbit-aspect');
   };
