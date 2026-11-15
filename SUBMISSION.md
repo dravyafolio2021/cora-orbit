@@ -12,9 +12,9 @@ Everything orbits the picture. Orbit keeps the video in charge: controls sit on 
 A glass skin where everything orbits the picture: the play button wears your progress as a ring, practice loops fill their own ring, and you can hold for 2×, swipe, or just tell the player "loop this". It adds a chapter menu, caption styling and saved preferences, and every gesture also has a button and a key.
 
 ## Links
-- Public URL: [YOUR DOMAIN]
+- Public URL: https://cora-orbit.vercel.app
 - Mux playback ID: [PLAYBACK ID]
-- Live site using the skin: [YOUR DOMAIN] (the submitted URL is our own live site)
+- Live site using the skin: https://cora-orbit.vercel.app (the submitted URL is our own live site)
 
 ## Visual
 Use `cover.png` (desktop, paused, chapter preview open) and `cover-phone.png`.
