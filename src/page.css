@@ -1,0 +1,76 @@
+/* Cora ORBIT — showcase page (the skin lives in orbit.css). */
+:root {
+  --page-bg: #0b0b0d;
+  --page-fg: #f6f4ef;
+  --page-fg-2: rgb(246 244 239 / 0.68);
+  --page-fg-3: rgb(246 244 239 / 0.46);
+  --page-line: rgb(255 255 255 / 0.09);
+  --page-accent: #ff6a3d;
+  --glow-rgb: 255 106 61;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { background: var(--page-bg); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--page-bg);
+  color: var(--page-fg);
+  font-family: 'Geist Variable', 'Geist', ui-sans-serif, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+a { color: inherit; text-decoration-color: rgb(255 255 255 / 0.3); text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+a:focus-visible { outline: 2px solid var(--page-accent); outline-offset: 3px; border-radius: 4px; }
+
+.page { width: min(1240px, 100%); margin: 0 auto; padding: 0 clamp(16px, 4vw, 40px) 64px; }
+
+.masthead { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 22px 0 24px; }
+.brand { display: inline-flex; align-items: center; gap: 14px; text-decoration: none; }
+.brand-logo { display: inline-flex; align-items: center; height: 28px; }
+.brand-logo img { height: 28px; width: auto; display: block; }
+.brand-word { font-size: 24px; font-weight: 700; letter-spacing: -0.04em; }
+.brand-divider { width: 1px; height: 20px; background: var(--page-line); }
+.brand-product { font-size: 13px; font-weight: 600; letter-spacing: 0.32em; color: var(--page-fg-2); }
+.masthead-note { margin: 0; font-size: 14px; color: var(--page-fg-3); }
+
+.stage { position: relative; }
+.stage-glow {
+  position: absolute;
+  inset: 6% 2% -4%;
+  z-index: 0;
+  border-radius: 40px;
+  background: rgb(var(--glow-rgb) / 0.55);
+  filter: blur(80px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 600ms ease, background 1200ms linear;
+}
+html[data-glow] .stage-glow { opacity: 0.42; }
+.orbit-player { position: relative; z-index: 1; display: block; }
+.orbit-player .orbit { box-shadow: 0 0 0 1px rgb(255 255 255 / 0.06), 0 40px 80px -40px rgb(0 0 0 / 0.9); }
+
+.notes { margin-top: clamp(40px, 6vw, 72px); display: grid; gap: 22px; }
+.notes-title { margin: 0; font-size: clamp(28px, 4.2vw, 44px); line-height: 1.08; font-weight: 640; letter-spacing: -0.035em; max-width: 18ch; }
+.notes-lede { margin: 0; max-width: 62ch; font-size: 17px; color: var(--page-fg-2); }
+.notes-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; margin-top: 10px; padding-top: 26px; border-top: 1px solid var(--page-line); }
+.note h2 { margin: 0 0 8px; font-size: 15px; font-weight: 620; }
+.note p { margin: 0; font-size: 15px; color: var(--page-fg-2); }
+.note kbd { font: 500 12px/1 'Geist Mono Variable', ui-monospace, monospace; padding: 2px 6px; border-radius: 6px; background: rgb(255 255 255 / 0.1); }
+.credits { margin: 18px 0 0; font-size: 13px; color: var(--page-fg-3); }
+
+@media (max-width: 800px) {
+  .notes-grid { grid-template-columns: 1fr; gap: 20px; }
+}
+@media (max-width: 600px) {
+  .page { padding: 0 0 48px; }
+  .masthead { padding: 14px 16px; }
+  .masthead-note { font-size: 13px; }
+  .orbit-player .orbit { border-radius: 0; }
+  .notes { padding: 0 16px; }
+  .stage-glow { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .stage-glow { transition: none; } }

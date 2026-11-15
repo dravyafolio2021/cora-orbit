@@ -1,0 +1,22 @@
+{
+  "name": "cora-orbit",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cora ORBIT — a Video.js v10 skin built around the orbit: progress, loops and an assistant you can talk to.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fontsource-variable/geist": "^5.3.0",
+    "@fontsource-variable/geist-mono": "^5.3.0",
+    "@videojs/html": "10.4.0",
+    "@videojs/mux-video": "^10.4.0"
+  },
+  "devDependencies": {
+    "vite": "^7.1.0"
+  }
+}

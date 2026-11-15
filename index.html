@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0b0d" />
+  <title>Cora ORBIT — a Video.js v10 skin</title>
+  <meta name="description" content="Cora ORBIT is a Video.js v10 skin built around one idea: everything orbits the picture. Glass controls that stay out of the way, gestures for lazy hands, a practice loop and an assistant you can just talk to." />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <script type="module" src="/src/main.js"></script>
+</head>
+<body>
+  <svg class="orbit-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.6v12.8a1 1 0 0 0 1.5.86l10.2-6.4a1 1 0 0 0 0-1.72L9.5 4.74A1 1 0 0 0 8 5.6Z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><rect x="6.5" y="5" width="3.6" height="14" rx="1.2" fill="currentColor" stroke="none"/><rect x="13.9" y="5" width="3.6" height="14" rx="1.2" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-replay" viewBox="0 0 24 24"><path d="M4 12a8 8 0 1 0 2.6-5.9"/><path d="M4 4v4.5h4.5"/></symbol>
+    <symbol id="i-back" viewBox="0 0 24 24"><path d="M4.5 12a7.5 7.5 0 1 0 2.4-5.5"/><path d="M4.5 4.5v4h4"/></symbol>
+    <symbol id="i-fwd" viewBox="0 0 24 24"><path d="M19.5 12a7.5 7.5 0 1 1-2.4-5.5"/><path d="M19.5 4.5v4h-4"/></symbol>
+    <symbol id="i-vol-high" viewBox="0 0 24 24"><path d="M11 5 6.5 8.6H4v6.8h2.5L11 19V5Z"/><path d="M15 9a4.2 4.2 0 0 1 0 6"/><path d="M17.8 6.2a8.2 8.2 0 0 1 0 11.6"/></symbol>
+    <symbol id="i-vol-low" viewBox="0 0 24 24"><path d="M11 5 6.5 8.6H4v6.8h2.5L11 19V5Z"/><path d="M15 9a4.2 4.2 0 0 1 0 6"/></symbol>
+    <symbol id="i-vol-off" viewBox="0 0 24 24"><path d="M11 5 6.5 8.6H4v6.8h2.5L11 19V5Z"/><path d="m15.5 9.5 5 5m0-5-5 5"/></symbol>
+    <symbol id="i-cc" viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="3.5"/><path d="M10.2 10.3a2 2 0 1 0 0 3.4M16.6 10.3a2 2 0 1 0 0 3.4"/></symbol>
+    <symbol id="i-tune" viewBox="0 0 24 24"><path d="M4 7.5h9M18.5 7.5H20M4 16.5h2.5M12 16.5h8"/><circle cx="15.8" cy="7.5" r="2.4"/><circle cx="9.2" cy="16.5" r="2.4"/></symbol>
+    <symbol id="i-pip" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2.5"/><rect x="12" y="11.5" width="6.5" height="5" rx="1.2" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-full" viewBox="0 0 24 24"><path d="M8.5 4H5.5A1.5 1.5 0 0 0 4 5.5v3M15.5 4h3A1.5 1.5 0 0 1 20 5.5v3M4 15.5v3A1.5 1.5 0 0 0 5.5 20h3M20 15.5v3a1.5 1.5 0 0 1-1.5 1.5h-3"/></symbol>
+    <symbol id="i-full-exit" viewBox="0 0 24 24"><path d="M9 4v3.5A1.5 1.5 0 0 1 7.5 9H4M15 4v3.5A1.5 1.5 0 0 0 16.5 9H20M4 15h3.5A1.5 1.5 0 0 1 9 16.5V20M20 15h-3.5a1.5 1.5 0 0 0-1.5 1.5V20"/></symbol>
+    <symbol id="i-loop" viewBox="0 0 24 24"><path d="M17 3.5 20 6.5l-3 3"/><path d="M4 11V9.5a3 3 0 0 1 3-3h13"/><path d="M7 20.5 4 17.5l3-3"/><path d="M20 13v1.5a3 3 0 0 1-3 3H4"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3.2c.5 4.1 2.6 6.3 6.8 6.8-4.2.5-6.3 2.7-6.8 6.8-.5-4.1-2.6-6.3-6.8-6.8 4.2-.5 6.3-2.7 6.8-6.8Z" fill="currentColor" stroke="none"/><path d="M18.6 15.4c.2 1.6 1 2.4 2.6 2.6-1.6.2-2.4 1-2.6 2.6-.2-1.6-1-2.4-2.6-2.6 1.6-.2 2.4-1 2.6-2.6Z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-chapters" viewBox="0 0 24 24"><path d="M9 6.5h11M9 12h11M9 17.5h11"/><circle cx="4.8" cy="6.5" r="1.1" fill="currentColor" stroke="none"/><circle cx="4.8" cy="12" r="1.1" fill="currentColor" stroke="none"/><circle cx="4.8" cy="17.5" r="1.1" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M18 6 6 18"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5"/></symbol>
+    <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/></symbol>
+    <symbol id="i-ff" viewBox="0 0 24 24"><path d="M4 6.8v10.4a.8.8 0 0 0 1.25.66L12 13.2v4a.8.8 0 0 0 1.25.66l7.4-5.2a.8.8 0 0 0 0-1.32l-7.4-5.2A.8.8 0 0 0 12 6.8v4L5.25 6.14A.8.8 0 0 0 4 6.8Z" fill="currentColor" stroke="none"/></symbol>
+    <symbol id="i-send" viewBox="0 0 24 24"><path d="M5 12h13.5M13 6.5 18.5 12 13 17.5"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><path d="M6.5 10h1M10.5 10h1M14.5 10h1M8 14h8"/></symbol>
+    <symbol id="i-frame-back" viewBox="0 0 24 24"><path d="M6.5 6v12"/><path d="M18 6.6v10.8a.8.8 0 0 1-1.2.7l-8.4-5.4a.8.8 0 0 1 0-1.4l8.4-5.4a.8.8 0 0 1 1.2.7Z"/></symbol>
+    <symbol id="i-frame-fwd" viewBox="0 0 24 24"><path d="M17.5 6v12"/><path d="M6 6.6v10.8a.8.8 0 0 0 1.2.7l8.4-5.4a.8.8 0 0 0 0-1.4L7.2 5.9A.8.8 0 0 0 6 6.6Z"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M19.5 14.6A8 8 0 1 1 9.4 4.5a6.4 6.4 0 0 0 10.1 10.1Z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.8"/><path d="M12 2.8v2M12 19.2v2M2.8 12h2M19.2 12h2M5.5 5.5l1.4 1.4M17.1 17.1l1.4 1.4M5.5 18.5l1.4-1.4M17.1 6.9l1.4-1.4"/></symbol>
+  </svg>
+
+  <div class="page">
+    <header class="masthead">
+      <a class="brand" href="/" aria-label="Cora ORBIT home">
+        <span class="brand-logo" data-logo>
+          <!-- Replace with your Cora logo: <img src="/brand/cora-logo.svg" alt="Cora" height="28"> -->
+          <span class="brand-word">cora</span>
+        </span>
+        <span class="brand-divider" aria-hidden="true"></span>
+        <span class="brand-product">ORBIT</span>
+      </a>
+      <p class="masthead-note">A <a href="https://videojs.org" rel="noopener">Video.js v10</a> skin</p>
+    </header>
+
+    <main id="main">
+      <section class="stage" aria-label="Player">
+        <div class="stage-glow" aria-hidden="true"></div>
+
+        <video-player id="player" class="orbit-player" content-title="Tears of Steel" default-playback-rates="0.5 0.75 1 1.25 1.5 2">
+          <media-container class="orbit" aria-label="Cora ORBIT video player" data-layout="auto">
+            <!-- The media element is inserted here by src/media.js (Mux in production, a local clip in development). -->
+
+            <media-poster class="orbit-poster"></media-poster>
+
+            <div class="orbit-intro" aria-hidden="true">
+              <div>
+                <p class="orbit-intro-title" data-intro-title>Tears of Steel</p>
+                <p class="orbit-intro-meta"><span data-intro-duration></span><span data-intro-chapters></span><span>Captions</span></p>
+              </div>
+              <p class="orbit-intro-hint">Press <kbd class="orbit-kbd">Space</kbd> to play · <kbd class="orbit-kbd">?</kbd> for shortcuts</p>
+            </div>
+
+            <div class="orbit-captions" aria-hidden="true"><div class="orbit-captions-box" hidden></div></div>
+
+            <media-buffering-indicator class="orbit-buffering">
+              <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="19" /></svg>
+            </media-buffering-indicator>
+
+            <div class="orbit-hud" aria-hidden="true">
+              <div class="orbit-hud-pill" data-hud="speed" hidden>
+                <svg class="icon"><use href="#i-ff"/></svg>
+                <strong class="orbit-hud-value">2×</strong>
+                <span class="orbit-hud-scale"><span></span></span>
+                <span class="orbit-hud-hint">Slide to tune · let go for normal</span>
+              </div>
+              <div class="orbit-hud-pill" data-hud="level" hidden>
+                <svg class="icon"><use href="#i-vol-high"/></svg>
+                <span class="orbit-hud-bar"><span></span></span>
+                <strong class="orbit-hud-value">70%</strong>
+              </div>
+              <div class="orbit-hud-pill" data-hud="note" hidden><span class="orbit-hud-text"></span></div>
+            </div>
+
+            <media-controls class="orbit-controls">
+              <media-controls-backdrop class="orbit-scrim"></media-controls-backdrop>
+              <media-controls-content class="orbit-ui">
+                <div class="orbit-top">
+                  <div class="orbit-heading">
+                    <media-title class="orbit-title"></media-title>
+                    <span class="orbit-now" data-chapter-now></span>
+                  </div>
+                  <div class="orbit-top-chips">
+                    <span class="orbit-chip" data-sleep-chip hidden><svg class="icon"><use href="#i-moon"/></svg><span></span></span>
+                    <span class="orbit-chip orbit-chip--accent" data-loop-chip hidden><svg class="icon"><use href="#i-loop"/></svg><span></span></span>
+                  </div>
+                </div>
+
+                <media-controls-group class="orbit-center" aria-label="Quick playback">
+                  <media-seek-button class="orbit-btn orbit-btn--ghost orbit-seek" seconds="-10">
+                    <svg class="icon"><use href="#i-back"/></svg><span class="orbit-seek-label" aria-hidden="true">10</span>
+                  </media-seek-button>
+                  <media-play-button class="orbit-btn orbit-orb">
+                    <svg class="orbit-orb-ring" viewBox="0 0 100 100" aria-hidden="true">
+                      <circle class="orbit-orb-track" cx="50" cy="50" r="46"/>
+                      <circle class="orbit-orb-progress" cx="50" cy="50" r="46" pathLength="100"/>
+                    </svg>
+                    <svg class="icon icon-play"><use href="#i-play"/></svg>
+                    <svg class="icon icon-pause"><use href="#i-pause"/></svg>
+                    <svg class="icon icon-replay"><use href="#i-replay"/></svg>
+                  </media-play-button>
+                  <media-seek-button class="orbit-btn orbit-btn--ghost orbit-seek" seconds="10">
+                    <svg class="icon"><use href="#i-fwd"/></svg><span class="orbit-seek-label" aria-hidden="true">10</span>
+                  </media-seek-button>
+                </media-controls-group>
+
+                <div class="orbit-dock">
+                  <media-time-slider class="orbit-timeline" step="1" large-step="10">
+                    <media-time-slider-chapters class="orbit-chapters">
+                      <template>
+                        <div class="orbit-chapter">
+                          <media-slider-track class="orbit-track">
+                            <media-slider-buffer class="orbit-track-buffer"></media-slider-buffer>
+                            <media-slider-fill class="orbit-track-fill"></media-slider-fill>
+                          </media-slider-track>
+                        </div>
+                      </template>
+                    </media-time-slider-chapters>
+                    <div class="orbit-loop-band" data-loop-band hidden aria-hidden="true"><span class="orbit-loop-edge" data-edge="a"></span><span class="orbit-loop-edge" data-edge="b"></span></div>
+                    <media-slider-thumb class="orbit-thumb"></media-slider-thumb>
+                    <media-slider-preview class="orbit-preview" overflow="clamp">
+                      <div class="orbit-preview-card">
+                        <media-slider-thumbnail class="orbit-preview-thumb"></media-slider-thumbnail>
+                        <div class="orbit-preview-meta">
+                          <media-time-slider-chapter-title class="orbit-preview-chapter"></media-time-slider-chapter-title>
+                          <media-slider-value class="orbit-preview-time" type="pointer"></media-slider-value>
+                        </div>
+                      </div>
+                    </media-slider-preview>
+                  </media-time-slider>
+
+                  <media-tooltip-group>
+                    <media-controls-group class="orbit-bar" aria-label="Playback controls">
+                      <div class="orbit-bar-start">
+                        <media-play-button class="orbit-btn orbit-play" id="t-play">
+                          <svg class="icon icon-play"><use href="#i-play"/></svg>
+                          <svg class="icon icon-pause"><use href="#i-pause"/></svg>
+                          <svg class="icon icon-replay"><use href="#i-replay"/></svg>
+                        </media-play-button>
+                        <media-tooltip trigger="t-play" side="top" class="orbit-tip"><media-tooltip-label></media-tooltip-label><media-tooltip-shortcut class="orbit-kbd"></media-tooltip-shortcut></media-tooltip>
+
+                        <div class="orbit-volume">
+                          <media-mute-button class="orbit-btn orbit-mute" id="t-mute">
+                            <svg class="icon icon-vol-high"><use href="#i-vol-high"/></svg>
+                            <svg class="icon icon-vol-low"><use href="#i-vol-low"/></svg>
+                            <svg class="icon icon-vol-off"><use href="#i-vol-off"/></svg>
+                          </media-mute-button>
+                          <media-tooltip trigger="t-mute" side="top" class="orbit-tip"><media-tooltip-label></media-tooltip-label><media-tooltip-shortcut class="orbit-kbd"></media-tooltip-shortcut></media-tooltip>
+                          <media-volume-slider class="orbit-volume-slider" thumb-alignment="edge">
+                            <media-slider-track class="orbit-vtrack"><media-slider-fill class="orbit-vfill"></media-slider-fill></media-slider-track>
+                            <media-slider-thumb class="orbit-vthumb"></media-slider-thumb>
+                          </media-volume-slider>
+                        </div>
+
+                        <media-time-group class="orbit-time">
+                          <media-time type="current" toggle class="orbit-time-current"></media-time>
+                          <media-time-separator class="orbit-time-sep"></media-time-separator>
+                          <media-time type="duration" class="orbit-time-total"></media-time>
+                        </media-time-group>
+
+                        <button type="button" class="orbit-chapter-btn" commandfor="pop-chapters" data-chapter-button>
+                          <span class="orbit-chapter-btn-label" data-chapter-label>Chapters</span>
+                          <svg class="icon"><use href="#i-chapters"/></svg>
+                        </button>
+                      </div>
+
+                      <div class="orbit-bar-end">
+                        <button type="button" class="orbit-btn orbit-btn--assist" commandfor="pop-assist" id="t-assist" aria-label="Ask Orbit" aria-keyshortcuts="/">
+                          <svg class="icon"><use href="#i-spark"/></svg>
+                        </button>
+                        <media-tooltip trigger="t-assist" side="top" class="orbit-tip"><media-tooltip-label>Ask Orbit</media-tooltip-label><media-tooltip-shortcut class="orbit-kbd">/</media-tooltip-shortcut></media-tooltip>
+
+                        <button type="button" class="orbit-btn orbit-loop-btn" commandfor="pop-loop" id="t-loop" aria-label="Practice loop" aria-keyshortcuts="Shift+L">
+                          <svg class="icon"><use href="#i-loop"/></svg>
+                          <span class="orbit-loop-badge" data-loop-badge hidden></span>
+                        </button>
+                        <media-tooltip trigger="t-loop" side="top" class="orbit-tip"><media-tooltip-label>Practice loop</media-tooltip-label><media-tooltip-shortcut class="orbit-kbd">⇧L</media-tooltip-shortcut></media-tooltip>
+
+                        <media-captions-button class="orbit-btn orbit-cc" id="t-cc">
+                          <svg class="icon"><use href="#i-cc"/></svg>
+                          <span class="orbit-cc-bar" aria-hidden="true"></span>
+                        </media-captions-button>
+                        <media-tooltip trigger="t-cc" side="top" class="orbit-tip"><media-tooltip-label></media-tooltip-label><media-tooltip-shortcut class="orbit-kbd"></media-tooltip-shortcut></media-tooltip>
+
+                        <button type="button" class="orbit-btn" commandfor="pop-settings" id="t-settings" aria-label="Settings">
+                          <svg class="icon"><use href="#i-tune"/></svg>
+                        </button>
+                        <media-tooltip trigger="t-settings" side="top" class="orbit-tip"><media-tooltip-label>Settings</media-tooltip-label></media-tooltip>
+
+                        <media-pip-button class="orbit-btn orbit-pip" id="t-pip">
+                          <svg class="icon"><use href="#i-pip"/></svg>
+                        </media-pip-button>
+                        <media-tooltip trigger="t-pip" side="top" class="orbit-tip"><media-tooltip-label></media-tooltip-label><media-tooltip-shortcut class="orbit-kbd"></media-tooltip-shortcut></media-tooltip>
+
+                        <media-fullscreen-button class="orbit-btn orbit-fs" id="t-fs">
+                          <svg class="icon icon-full"><use href="#i-full"/></svg>
+                          <svg class="icon icon-full-exit"><use href="#i-full-exit"/></svg>
+                        </media-fullscreen-button>
+                        <media-tooltip trigger="t-fs" side="top" class="orbit-tip"><media-tooltip-label></media-tooltip-label><media-tooltip-shortcut class="orbit-kbd"></media-tooltip-shortcut></media-tooltip>
+                      </div>
+                    </media-controls-group>
+                  </media-tooltip-group>
+                </div>
+              </media-controls-content>
+            </media-controls>
+
+            <!-- Chapters: v10 has no chapter menu yet, so Orbit adds one. -->
+            <media-popover id="pop-chapters" side="top" align="start" class="orbit-card orbit-card--chapters">
+              <div class="orbit-card-head"><h2 class="orbit-card-title">Chapters</h2><span class="orbit-card-sub" data-chapter-count></span></div>
+              <ol class="orbit-chapter-list" data-chapter-list></ol>
+            </media-popover>
+
+            <!-- Settings: two glass cards, one level deep. -->
+            <media-popover id="pop-settings" side="top" align="end" class="orbit-card orbit-card--settings">
+              <div class="orbit-settings">
+                <div class="orbit-more" role="group" aria-label="More">
+                  <button type="button" class="orbit-more-btn" data-more="assist"><svg class="icon"><use href="#i-spark"/></svg>Ask Orbit</button>
+                  <button type="button" class="orbit-more-btn" data-more="loop"><svg class="icon"><use href="#i-loop"/></svg>Practice loop</button>
+                  <button type="button" class="orbit-more-btn" data-more="pip"><svg class="icon"><use href="#i-pip"/></svg>Pop out</button>
+                </div>
+                <section class="orbit-pane" aria-labelledby="h-playback">
+                  <h2 class="orbit-card-title" id="h-playback">Playback</h2>
+                  <div class="orbit-field">
+                    <div class="orbit-field-head"><label for="speed-range">Speed</label><output class="orbit-mono" data-speed-out for="speed-range">1×</output></div>
+                    <div class="orbit-range-wrap">
+                      <input type="range" id="speed-range" class="orbit-range" min="0.25" max="3" step="0.05" value="1" list="speed-marks" data-speed-range />
+                      <div class="orbit-range-marks" aria-hidden="true" data-speed-marks></div>
+                    </div>
+                  </div>
+                  <div class="orbit-field" data-quality-field hidden>
+                    <div class="orbit-field-head"><span id="lbl-quality">Quality</span><span class="orbit-mono" data-quality-out></span></div>
+                    <div class="orbit-chips" role="radiogroup" aria-labelledby="lbl-quality" data-quality-chips></div>
+                  </div>
+                  <div class="orbit-field" data-captions-field>
+                    <div class="orbit-field-head"><span id="lbl-captions">Captions</span><span data-captions-out>Off</span></div>
+                    <div class="orbit-chips" role="radiogroup" aria-labelledby="lbl-captions" data-captions-chips></div>
+                    <div class="orbit-chips orbit-chips--style" role="radiogroup" aria-label="Caption size" data-caption-size>
+                      <button type="button" role="radio" class="orbit-chip-btn" data-size="s" aria-label="Small captions"><span style="font-size:11px">Aa</span></button>
+                      <button type="button" role="radio" class="orbit-chip-btn" data-size="m" aria-label="Medium captions"><span style="font-size:13px">Aa</span></button>
+                      <button type="button" role="radio" class="orbit-chip-btn" data-size="l" aria-label="Large captions"><span style="font-size:16px">Aa</span></button>
+                    </div>
+                  </div>
+                </section>
+                <section class="orbit-pane" aria-labelledby="h-prefs">
+                  <h2 class="orbit-card-title" id="h-prefs">Preferences</h2>
+                  <label class="orbit-switch"><span><span class="orbit-switch-label">Ambient glow</span><span class="orbit-switch-hint">Light from the video around the player</span></span><input type="checkbox" role="switch" data-pref="glow" /></label>
+                  <label class="orbit-switch"><span><span class="orbit-switch-label">Caption backdrop</span><span class="orbit-switch-hint">Solid box behind captions</span></span><input type="checkbox" role="switch" data-pref="ccbox" checked /></label>
+                  <label class="orbit-switch"><span><span class="orbit-switch-label">Loop video</span><span class="orbit-switch-hint">Start again at the end</span></span><input type="checkbox" role="switch" data-pref="loop" /></label>
+                  <div class="orbit-field">
+                    <div class="orbit-field-head"><span id="lbl-sleep">Sleep timer</span><span data-sleep-out>Off</span></div>
+                    <div class="orbit-chips" role="radiogroup" aria-labelledby="lbl-sleep" data-sleep-chips>
+                      <button type="button" role="radio" class="orbit-chip-btn" data-sleep="0">Off</button>
+                      <button type="button" role="radio" class="orbit-chip-btn" data-sleep="15">15m</button>
+                      <button type="button" role="radio" class="orbit-chip-btn" data-sleep="30">30m</button>
+                      <button type="button" role="radio" class="orbit-chip-btn" data-sleep="end">End</button>
+                    </div>
+                  </div>
+                  <button type="button" class="orbit-link-btn" data-open-shortcuts><svg class="icon"><use href="#i-key"/></svg>Keyboard shortcuts <kbd class="orbit-kbd">?</kbd></button>
+                </section>
+              </div>
+            </media-popover>
+
+            <!-- Practice loop: mark A and B, set passes, watch the orbit fill. -->
+            <media-popover id="pop-loop" side="top" align="end" class="orbit-card orbit-card--loop">
+              <div class="orbit-card-head"><h2 class="orbit-card-title">Practice loop</h2><span class="orbit-card-sub">Repeat one moment until it sticks</span></div>
+              <div class="orbit-loop">
+                <div class="orbit-loop-ring" role="img" data-loop-ring aria-label="No loop yet">
+                  <svg viewBox="0 0 100 100" aria-hidden="true"><circle class="track" cx="50" cy="50" r="42"/><circle class="pass" cx="50" cy="50" r="42" pathLength="100"/></svg>
+                  <span class="orbit-loop-count"><strong data-loop-count>0</strong><span data-loop-of>/ 5</span></span>
+                </div>
+                <div class="orbit-loop-body">
+                  <div class="orbit-loop-range orbit-mono" data-loop-range>Set A and B</div>
+                  <div class="orbit-loop-ab">
+                    <button type="button" class="orbit-pill-btn" data-loop-set="a" aria-keyshortcuts="[">Set A <kbd class="orbit-kbd">[</kbd></button>
+                    <button type="button" class="orbit-pill-btn" data-loop-set="b" aria-keyshortcuts="]">Set B <kbd class="orbit-kbd">]</kbd></button>
+                  </div>
+                  <div class="orbit-stepper" role="group" aria-label="Passes">
+                    <span>Passes</span>
+                    <button type="button" class="orbit-step" data-loop-passes="-1" aria-label="Fewer passes">−</button>
+                    <output class="orbit-mono" data-loop-passes-out>5</output>
+                    <button type="button" class="orbit-step" data-loop-passes="1" aria-label="More passes">+</button>
+                  </div>
+                </div>
+              </div>
+              <div class="orbit-loop-actions">
+                <button type="button" class="orbit-icon-btn" data-frame="-1" aria-label="Previous frame" aria-keyshortcuts=","><svg class="icon"><use href="#i-frame-back"/></svg></button>
+                <button type="button" class="orbit-icon-btn" data-frame="1" aria-label="Next frame" aria-keyshortcuts="."><svg class="icon"><use href="#i-frame-fwd"/></svg></button>
+                <button type="button" class="orbit-pill-btn" data-loop-quick>Loop last 5 s</button>
+                <button type="button" class="orbit-pill-btn orbit-pill-btn--accent" data-loop-toggle aria-pressed="false" disabled>Start loop</button>
+              </div>
+            </media-popover>
+
+            <!-- Orbit assistant: say or type what you want. Runs in the browser; no data leaves the page. -->
+            <media-popover id="pop-assist" side="top" align="end" class="orbit-card orbit-card--assist">
+              <div class="orbit-card-head">
+                <h2 class="orbit-card-title"><svg class="icon icon-spark"><use href="#i-spark"/></svg>Ask Orbit</h2>
+                <span class="orbit-card-sub">Runs in your browser</span>
+              </div>
+              <div class="orbit-state" aria-label="Current settings" data-assist-state></div>
+              <div class="orbit-thread" data-assist-thread aria-live="polite"></div>
+              <div class="orbit-ideas" data-assist-ideas></div>
+              <form class="orbit-ask" data-assist-form autocomplete="off">
+                <label class="visually-hidden" for="assist-input">Tell the player what you want</label>
+                <input id="assist-input" class="orbit-ask-input" type="text" placeholder="“slower”, “loop this”, “what’s happening?”" enterkeyhint="send" data-assist-input />
+                <button type="button" class="orbit-ask-btn" data-assist-mic aria-label="Speak to Orbit" hidden><svg class="icon"><use href="#i-mic"/></svg></button>
+                <button type="submit" class="orbit-ask-btn orbit-ask-btn--send" aria-label="Send"><svg class="icon"><use href="#i-send"/></svg></button>
+              </form>
+            </media-popover>
+
+            <dialog class="orbit-card orbit-dialog" data-shortcuts aria-labelledby="h-keys">
+              <div class="orbit-card-head"><h2 class="orbit-card-title" id="h-keys">Keyboard shortcuts</h2>
+                <button type="button" class="orbit-icon-btn" data-close-shortcuts aria-label="Close"><svg class="icon"><use href="#i-close"/></svg></button>
+              </div>
+              <dl class="orbit-keys">
+                <div><dt><kbd class="orbit-kbd">Space</kbd><kbd class="orbit-kbd">K</kbd></dt><dd>Play / pause</dd></div>
+                <div><dt><kbd class="orbit-kbd">←</kbd><kbd class="orbit-kbd">→</kbd></dt><dd>Back / forward 5 s</dd></div>
+                <div><dt><kbd class="orbit-kbd">J</kbd><kbd class="orbit-kbd">L</kbd></dt><dd>Back / forward 10 s</dd></div>
+                <div><dt><kbd class="orbit-kbd">↑</kbd><kbd class="orbit-kbd">↓</kbd></dt><dd>Volume</dd></div>
+                <div><dt><kbd class="orbit-kbd">M</kbd></dt><dd>Mute</dd></div>
+                <div><dt><kbd class="orbit-kbd">&lt;</kbd><kbd class="orbit-kbd">&gt;</kbd></dt><dd>Slower / faster</dd></div>
+                <div><dt><kbd class="orbit-kbd">Shift</kbd>+ hold <kbd class="orbit-kbd">Space</kbd></dt><dd>2× while held</dd></div>
+                <div><dt><kbd class="orbit-kbd">C</kbd></dt><dd>Captions</dd></div>
+                <div><dt><kbd class="orbit-kbd">F</kbd><kbd class="orbit-kbd">I</kbd></dt><dd>Fullscreen / picture-in-picture</dd></div>
+                <div><dt><kbd class="orbit-kbd">0</kbd>–<kbd class="orbit-kbd">9</kbd></dt><dd>Jump to 0–90%</dd></div>
+                <div><dt><kbd class="orbit-kbd">Shift</kbd>+<kbd class="orbit-kbd">←</kbd><kbd class="orbit-kbd">→</kbd></dt><dd>Previous / next chapter</dd></div>
+                <div><dt><kbd class="orbit-kbd">[</kbd><kbd class="orbit-kbd">]</kbd></dt><dd>Set loop start / end</dd></div>
+                <div><dt><kbd class="orbit-kbd">Shift</kbd>+<kbd class="orbit-kbd">L</kbd></dt><dd>Loop on / off</dd></div>
+                <div><dt><kbd class="orbit-kbd">,</kbd><kbd class="orbit-kbd">.</kbd></dt><dd>Frame back / forward</dd></div>
+                <div><dt><kbd class="orbit-kbd">/</kbd></dt><dd>Ask Orbit</dd></div>
+                <div><dt><kbd class="orbit-kbd">?</kbd></dt><dd>This list</dd></div>
+              </dl>
+            </dialog>
+
+            <media-seek-indicator class="orbit-indicator orbit-indicator--seek">
+              <span class="orbit-indicator-chevrons" aria-hidden="true"><i></i><i></i><i></i></span>
+              <media-seek-indicator-value class="orbit-indicator-value"></media-seek-indicator-value>
+            </media-seek-indicator>
+            <media-volume-indicator class="orbit-indicator orbit-indicator--volume">
+              <media-volume-indicator-fill class="orbit-indicator-fill">
+                <media-volume-indicator-value class="orbit-indicator-value"></media-volume-indicator-value>
+              </media-volume-indicator-fill>
+            </media-volume-indicator>
+            <media-status-indicator class="orbit-indicator orbit-indicator--status" actions="togglePaused toggleSubtitles toggleFullscreen togglePictureInPicture">
+              <svg class="icon icon-play"><use href="#i-play"/></svg>
+              <svg class="icon icon-pause"><use href="#i-pause"/></svg>
+              <svg class="icon icon-cc"><use href="#i-cc"/></svg>
+              <svg class="icon icon-full"><use href="#i-full"/></svg>
+              <svg class="icon icon-pip"><use href="#i-pip"/></svg>
+              <media-status-indicator-value class="orbit-indicator-value"></media-status-indicator-value>
+            </media-status-indicator>
+
+            <media-hotkey keys="Space" action="togglePaused"></media-hotkey>
+            <media-hotkey keys="k" action="togglePaused"></media-hotkey>
+            <media-hotkey keys="m" action="toggleMuted"></media-hotkey>
+            <media-hotkey keys="ArrowLeft" action="seekStep" value="-5"></media-hotkey>
+            <media-hotkey keys="ArrowRight" action="seekStep" value="5"></media-hotkey>
+            <media-hotkey keys="j" action="seekStep" value="-10"></media-hotkey>
+            <media-hotkey keys="l" action="seekStep" value="10"></media-hotkey>
+            <media-hotkey keys="ArrowUp" action="volumeStep" value="0.05"></media-hotkey>
+            <media-hotkey keys="ArrowDown" action="volumeStep" value="-0.05"></media-hotkey>
+            <media-hotkey keys="0-9" action="seekToPercent"></media-hotkey>
+            <media-hotkey keys="Home" action="seekToPercent" value="0"></media-hotkey>
+            <media-hotkey keys="End" action="seekToPercent" value="100"></media-hotkey>
+            <media-hotkey keys="&gt;" action="speedUp"></media-hotkey>
+            <media-hotkey keys="&lt;" action="speedDown"></media-hotkey>
+            <media-hotkey keys="f" action="toggleFullscreen"></media-hotkey>
+            <media-hotkey keys="c" action="toggleSubtitles"></media-hotkey>
+            <media-hotkey keys="i" action="togglePictureInPicture"></media-hotkey>
+
+            <media-gesture type="tap" action="togglePaused" pointer="mouse" region="center"></media-gesture>
+            <media-gesture type="tap" action="togglePaused" pointer="mouse" region="left"></media-gesture>
+            <media-gesture type="tap" action="togglePaused" pointer="mouse" region="right"></media-gesture>
+            <media-gesture type="tap" action="toggleControls" pointer="touch"></media-gesture>
+            <media-gesture type="doubletap" action="seekStep" value="-10" region="left"></media-gesture>
+            <media-gesture type="doubletap" action="toggleFullscreen" region="center"></media-gesture>
+            <media-gesture type="doubletap" action="seekStep" value="10" region="right"></media-gesture>
+
+            <media-status-announcer class="visually-hidden"></media-status-announcer>
+            <div class="visually-hidden" aria-live="polite" data-orbit-announce></div>
+
+            <media-error-dialog class="orbit-error">
+              <media-dialog-backdrop class="orbit-error-backdrop"></media-dialog-backdrop>
+              <media-dialog-popup class="orbit-card orbit-error-card">
+                <media-dialog-title class="orbit-card-title"></media-dialog-title>
+                <media-dialog-description class="orbit-card-sub"></media-dialog-description>
+                <media-dialog-close class="orbit-pill-btn orbit-pill-btn--accent"></media-dialog-close>
+              </media-dialog-popup>
+            </media-error-dialog>
+          </media-container>
+        </video-player>
+      </section>
+
+      <section class="notes" aria-labelledby="notes-title">
+        <h1 id="notes-title" class="notes-title">Everything orbits the picture.</h1>
+        <p class="notes-lede">Orbit keeps the video in charge. Controls sit on glass that lets the scene show through, the progress you make circles the play button, and the things people normally dig through menus for are one tap, one gesture or one sentence away.</p>
+        <div class="notes-grid">
+          <article class="note">
+            <h2>The orbit</h2>
+            <p>One circle carries the story: the play button wears your progress, and a practice loop fills a ring with every pass. Chapters split the timeline, and the chapter you’re in is always named.</p>
+          </article>
+          <article class="note">
+            <h2>Lazy by design</h2>
+            <p>Double-tap the sides to skip, hold anywhere for 2× and slide to tune it, swipe in fullscreen for volume and brightness. Every gesture has a button and a key, so nobody is left out.</p>
+          </article>
+          <article class="note">
+            <h2>Just ask</h2>
+            <p>Press ✦ or <kbd class="orbit-kbd">/</kbd> and say “too fast”, “loop this”, “skip to the robots” or “sleep after this”. Orbit understands plain words on the device, no account and no server.</p>
+          </article>
+        </div>
+        <p class="credits">Film: <a href="https://mango.blender.org" rel="noopener"><cite>Tears of Steel</cite></a> © Blender Foundation, <a href="https://creativecommons.org/licenses/by/3.0/" rel="noopener">CC BY 3.0</a>. Skin: Cora ORBIT, <a href="https://www.apache.org/licenses/LICENSE-2.0" rel="noopener">Apache 2.0</a>. Built on <a href="https://videojs.org" rel="noopener">Video.js v10</a>.</p>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
