@@ -97,6 +97,7 @@
    picture instead of flat black, so the frame feels full at 16:9. */
 .orbit-fill {
   position: absolute;
+  z-index: -1; /* under the picture, which isn't a positioned box inside mux-video */
   inset: -10%;
   pointer-events: none;
   background: center / cover no-repeat;
@@ -305,7 +306,7 @@
   background: var(--orbit-glass);
   backdrop-filter: blur(var(--orbit-blur)) saturate(1.5);
   -webkit-backdrop-filter: blur(var(--orbit-blur)) saturate(1.5);
-  box-shadow: inset 0 0 0 1px var(--orbit-stroke), inset 0 1px 0 rgb(255 255 255 / 0.08), 0 10px 30px -12px rgb(0 0 0 / 0.6);
+  box-shadow: 0 10px 30px -12px rgb(0 0 0 / 0.6);
   transition: background var(--orbit-slow);
 }
 
@@ -385,20 +386,21 @@
 /* Hover preview */
 .orbit-preview {
   position: absolute;
+  --thumb-w: clamp(150px, 26cqi, 232px);
   bottom: calc(100% + 14px);
-  left: var(--media-slider-pointer);
+  /* Video.js centres the card on the pointer and clamps it to the timeline
+     itself (overflow="clamp"), so no extra translate here. */
   pointer-events: none;
   opacity: 0;
-  translate: -50% 6px;
+  translate: 0 6px;
   transition: opacity var(--orbit-fast), translate var(--orbit-fast) var(--orbit-ease);
 }
 .orbit-timeline[data-pointing] .orbit-preview,
 .orbit-timeline[data-dragging] .orbit-preview,
-.orbit-timeline:has(:focus-visible) .orbit-preview { opacity: 1; translate: -50% 0; }
+.orbit-timeline:has(:focus-visible) .orbit-preview { opacity: 1; translate: 0 0; }
 .orbit-preview-card {
   display: grid;
   gap: 0;
-  --thumb-w: clamp(150px, 26cqi, 232px);
   width: var(--thumb-w);
   border-radius: 14px;
   overflow: hidden;
@@ -407,7 +409,7 @@
   -webkit-backdrop-filter: blur(var(--orbit-blur)) saturate(1.4);
   box-shadow: inset 0 0 0 1px var(--orbit-stroke-2), 0 16px 40px -10px rgb(0 0 0 / 0.7);
 }
-.orbit-preview-thumb { display: block; min-width: var(--thumb-w); max-width: var(--thumb-w); min-height: calc(var(--thumb-w) * 9 / 16); max-height: calc(var(--thumb-w) * 9 / 16); background: rgb(255 255 255 / 0.06); }
+.orbit-preview-thumb { display: block; min-width: var(--thumb-w); max-width: var(--thumb-w); min-height: calc(var(--thumb-w) / var(--orbit-film-ratio, 1.7778)); max-height: calc(var(--thumb-w) / var(--orbit-film-ratio, 1.7778)); background: rgb(255 255 255 / 0.06); }
 .orbit-preview-thumb[data-hidden] { display: none; }
 .orbit-preview-meta { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 7px 10px 8px; }
 .orbit-preview-chapter { font-size: 12.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
@@ -947,7 +949,7 @@ media-popover.orbit-card[data-ending-style], media-popover.orbit-card:not([data-
   .orbit .orbit-center > * { pointer-events: auto; }
   .orbit-top { font-size: 13px; }
   .orbit-now { display: none; }
-  .orbit-preview-card { --thumb-w: 150px; }
+  .orbit-preview { --thumb-w: 150px; }
   .orbit-captions { padding-bottom: 10px; }
 }
 @container orbit (max-width: 380px) {

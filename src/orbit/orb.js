@@ -12,6 +12,14 @@ export function initOrb(ctx) {
   watch(store, (s) => s.started, (st) => container.toggleAttribute('data-started', st));
   watch(store, (s) => s.isFullscreen, (f) => container.toggleAttribute('data-fullscreen', f));
 
+  // The preview thumbnail takes the film's own shape.
+  const ratio = () => {
+    const m = ctx.media;
+    if (m?.videoWidth && m?.videoHeight) container.style.setProperty('--orbit-film-ratio', String(m.videoWidth / m.videoHeight));
+  };
+  ctx.media?.addEventListener('loadedmetadata', ratio);
+  ratio();
+
   // The frame stays 16:9 everywhere; a wide film is letterboxed onto a
   // blurred echo of itself (see glow.js) rather than squeezing the player.
 
