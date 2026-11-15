@@ -2,6 +2,7 @@
 // the page and its glass with it ("letting the content influence the color").
 // Needs CORS-enabled media (Mux is); quietly does nothing otherwise.
 import { prefersReducedMotion } from './util.js';
+import { MUX_PLAYBACK_ID } from '../config.js';
 
 export function initGlow(ctx) {
   const { container } = ctx;
@@ -41,6 +42,39 @@ export function initGlow(ctx) {
 
   // Sampling always runs (it also keeps the glass legible on bright frames);
   // the page glow itself is shown only while [data-glow] is set.
+  // Cinema fill behind the picture.
+  const fill = document.createElement('div');
+  fill.className = 'orbit-fill';
+  fill.setAttribute('aria-hidden', 'true');
+  const fc = document.createElement('canvas');
+  fc.width = 64; fc.height = 36;
+  fill.append(fc);
+  container.prepend(fill);
+  if (MUX_PLAYBACK_ID) fill.style.backgroundImage = `url("https://image.mux.com/${MUX_PLAYBACK_ID}/thumbnail.webp?time=285&width=320")`;
+  const fg = fc.getContext('2d');
+  let fillTimer = 0;
+  function draw() {
+    const media = ctx.media;
+    const video = media?.shadowRoot?.querySelector('video') ?? (media instanceof HTMLVideoElement ? media : null);
+    if (!video || video.readyState < 2 || tainted || !video.videoWidth) return;
+    try {
+      // centre-crop the frame to 16:9 so the echo isn't stretched
+      const vw = video.videoWidth, vh = video.videoHeight;
+      const sw = Math.min(vw, vh * 16 / 9);
+      fg.drawImage(video, (vw - sw) / 2, 0, sw, vh, 0, 0, 64, 36);
+      fill.setAttribute('data-live', '');
+    } catch { tainted = true; }
+  }
+  const fillRun = () => {
+    clearInterval(fillTimer);
+    draw();
+    if (!ctx.store.paused && !document.hidden) fillTimer = setInterval(draw, prefersReducedMotion() ? 1000 : 160);
+  };
+  const m = ctx.media;
+  for (const ev of ['loadeddata', 'seeked', 'play', 'pause', 'playing']) m?.addEventListener(ev, fillRun);
+  document.addEventListener('visibilitychange', fillRun);
+  fillRun();
+
   ctx.glow = () => run();
   run();
   document.addEventListener('visibilitychange', () => (document.hidden ? clearInterval(timer) : run()));

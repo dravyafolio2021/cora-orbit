@@ -12,18 +12,8 @@ export function initOrb(ctx) {
   watch(store, (s) => s.started, (st) => container.toggleAttribute('data-started', st));
   watch(store, (s) => s.isFullscreen, (f) => container.toggleAttribute('data-fullscreen', f));
 
-  // Fit the frame to the film on wide screens (Tears of Steel is 2.4:1);
-  // phones keep 16:9 so the controls have room.
-  const fit = () => {
-    const m = ctx.media;
-    const w = m?.videoWidth, h = m?.videoHeight;
-    const wide = w && h && w / h > 1.9 && window.matchMedia('(min-width: 640px)').matches;
-    if (wide) container.style.setProperty('--orbit-aspect', `${w} / ${h}`);
-    else container.style.removeProperty('--orbit-aspect');
-  };
-  ctx.media?.addEventListener('loadedmetadata', fit);
-  window.addEventListener('resize', fit);
-  fit();
+  // The frame stays 16:9 everywhere; a wide film is letterboxed onto a
+  // blurred echo of itself (see glow.js) rather than squeezing the player.
 
   // Title card shown before the first play.
   $('[data-intro-title]', container).textContent = store.title || ctx.player.getAttribute('content-title') || '';
